@@ -4,7 +4,7 @@ import type { Note } from './getRabbitById/[rabbitId]';
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<any>,
+    res: NextApiResponse,
 ) {
     const sql = neon(`${process.env.DATABASE_URL}`, { arrayMode: false });
 
