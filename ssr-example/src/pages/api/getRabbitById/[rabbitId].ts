@@ -17,13 +17,16 @@ export default async function handler(
     const { rabbitId } = req.query;
     const rabbitResponse = await sql.query('SELECT * FROM Rabbit WHERE id = $1', [rabbitId], { arrayMode: false });
     const preferenceResponse = await sql.query('SELECT * FROM RabbitPreference WHERE rabbitId = $1', [rabbitId], { arrayMode: false });
+    const noteResponse = await sql.query('SELECT * FROM RabbitNote WHERE rabbitId = $1', [rabbitId], { arrayMode: false });
+
     const response = {
         id: rabbitResponse[0].id,
         breed: rabbitResponse[0].breed,
         name: rabbitResponse[0].name,
         age: rabbitResponse[0].age,
         imgurl: rabbitResponse[0].imgurl,
-        preferences: preferenceResponse.filter(pref => pref.preference).map(pref => pref.food),
+        preferences: preferenceResponse.map(pref => pref.food),
+        notes: noteResponse,
     };
     res.status(200).json(response);
 }
