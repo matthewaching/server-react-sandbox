@@ -7,6 +7,8 @@ export default async function handler(
     res: NextApiResponse<Note[]>,
 ) {
     const sql = neon(`${process.env.DATABASE_URL}`, { arrayMode: false });
-    await Promise.all(req.body.notes.map((note: Note) => sql.query('UPDATE RabbitNote SET note = $1 WHERE id = $2', [note.note, note.id])));
+    if (req.method === 'POST') {
+        await Promise.all(req.body.notes.map((note: Note) => sql.query('UPDATE RabbitNote SET note = $1 WHERE id = $2', [note.note, note.id])));
+    }
     res.status(200);
 }
