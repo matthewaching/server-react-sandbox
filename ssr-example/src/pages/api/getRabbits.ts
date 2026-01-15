@@ -1,19 +1,17 @@
 import { neon } from '@neondatabase/serverless';
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
+type AllRabbitData = {
     id: string;
     name: string;
-    age: number;
     imgUrl: string;
-    preferences?: string[];
 };
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data[]>,
+    res: NextApiResponse<AllRabbitData[]>,
 ) {
     const sql = neon(`${process.env.DATABASE_URL}`, { arrayMode: false });
-    const sqlResponse = await sql.query('SELECT * FROM Rabbit') as Data[];
+    const sqlResponse = await sql.query('SELECT id, name, imgurl FROM Rabbit') as AllRabbitData[];
     res.status(200).json(sqlResponse);
 }
