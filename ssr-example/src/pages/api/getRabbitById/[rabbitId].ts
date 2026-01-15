@@ -6,7 +6,7 @@ type Data = {
     name: string;
     age: number;
     imgUrl: string;
-    preferences: string[];
+    preferences?: string[];
 };
 
 export default async function handler(
