@@ -14,7 +14,7 @@ export default async function handler(
     res: NextApiResponse<Data>,
 ) {
     const sql = neon(`${process.env.DATABASE_URL}`);
-    const rabbitId = req.body.rabbitId;
+    const { rabbitId } = req.query;
     const rabbitResponse = await sql.query('SELECT * FROM Rabbit WHERE id = $1', [rabbitId], { arrayMode: false });
     const preferenceResponse = await sql.query('SELECT * FROM RabbitPreference WHERE rabbitId = $1', [rabbitId], { arrayMode: false });
     rabbitResponse[0].preferences = preferenceResponse.filter(pref => pref.preference).map(pref => pref.food);
