@@ -5,7 +5,7 @@ type Data = {
     id: string;
     name: string;
     age: number;
-    imgUrl: string;
+    imgurl: string;
     preferences?: string[];
 };
 
@@ -22,7 +22,7 @@ export default async function handler(
         breed: rabbitResponse[0].breed,
         name: rabbitResponse[0].name,
         age: rabbitResponse[0].age,
-        imgUrl: rabbitResponse[0].imgurl,
+        imgurl: rabbitResponse[0].imgurl,
         preferences: preferenceResponse.filter(pref => pref.preference).map(pref => pref.food),
     };
     res.status(200).json(response);

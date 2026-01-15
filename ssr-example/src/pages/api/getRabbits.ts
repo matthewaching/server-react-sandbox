@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 type AllRabbitData = {
     id: string;
     name: string;
-    imgUrl: string;
+    imgurl: string;
 };
 
 export default async function handler(
