@@ -12,6 +12,7 @@ export default async function handler(
     res: NextApiResponse<Data>,
 ) {
     const sql = neon(`${process.env.DATABASE_URL}`, { arrayMode: false });
-    const sqlResponse = await sql.query('SELECT * FROM Rabbit');
+    const rabbitId = req.body.rabbitId;
+    const sqlResponse = await sql.query('SELECT * FROM Rabbit WHERE id = $1', [rabbitId]);
     res.status(200).json(sqlResponse);
 }
