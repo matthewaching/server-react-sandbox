@@ -8,10 +8,9 @@ export default async function handler(
 ) {
     const sql = neon(`${process.env.DATABASE_URL}`, { arrayMode: false });
 
-    let neonResponse = null;
     if (req.method === 'POST') {
-        // await Promise.all(req.body.notes.map((note: Note) => sql.query('UPDATE RabbitNote SET note = $1 WHERE id = $2', [note.note, note.id])));
-        neonResponse = await sql.query("UPDATE RabbitNote SET note = 'Loves belly rubs' WHERE id = 1");
+        const notes = JSON.parse(req.body).notes;
+        await Promise.all(notes.map((note: Note) => sql.query('UPDATE RabbitNote SET note = $1 WHERE id = $2', [note.note, note.id])));
     }
-    res.status(200).json({ message: neonResponse });
+    res.status(200).send({});
 }
